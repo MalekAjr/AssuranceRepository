@@ -2,11 +2,14 @@ import { useEffect, useState } from "react";
 import logo from "../../assets/logo.png";
 import slider1 from "../../assets/slider1.jpg";
 import assurancelogo from "../../assets/assurancelogo.png";
+import logoutimg from "../../assets/logoutimg.jpg";
+import { useNavigate } from "react-router-dom";
 
 export default function Navbar() {
   const images = [slider1, logo, assurancelogo];
 
   const [currentImage, setCurrentImage] = useState(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -23,6 +26,12 @@ export default function Navbar() {
   const nextSlide = () => {
     setCurrentImage((prev) => (prev === images.length - 1 ? 0 : prev + 1));
   };
+
+  function handleLogout() {
+    localStorage.removeItem("user");
+
+    navigate("/login");
+  }
 
   return (
     <header
@@ -70,11 +79,18 @@ export default function Navbar() {
       <div className="w-full px-6 flex items-center justify-between -mt-10">
         {/* Logo */}
         <div className="flex items-center">
-          <img
-            src={logo}
-            alt="SIProject Logo"
-            className="h-14 w-auto object-contain"
-          />
+          <button
+            onClick={handleLogout}
+            className="flex items-center gap-2 text-white font-bold hover:text-blue-200 transition"
+          >
+            <img
+              src={logoutimg}
+              alt="Logout"
+              className="h-8 w-8 object-contain"
+            />
+
+            <span>Log Out</span>
+          </button>
         </div>
 
         {/* Right section */}
