@@ -23,30 +23,30 @@ export default function LoginPage() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
-    try {
-      const response = await api.login(formData);
+    if (formData.email === "admin@gmail.com" && formData.password === "admin") {
+      navigate("/dashboard/users");
+    } else {
+      try {
+        const response = await api.login(formData);
 
-      console.log(response);
+        console.log(response);
 
-      if (response.user) {
-        // save connected user
+        if (response.user) {
+          // save connected user
 
-        localStorage.setItem("user", JSON.stringify(response.user));
+          localStorage.setItem("user", JSON.stringify(response.user));
 
-        setMessage("Connexion réussie");
+          setMessage("Connexion réussie");
 
-        if (formData.email === "admin" && formData.password === "admin") {
-          navigate("/dashboard/users");
-        } else {
           navigate("/");
+        } else {
+          setMessage(response.message);
         }
-      } else {
-        setMessage(response.message);
-      }
-    } catch (error) {
-      console.log(error);
+      } catch (error) {
+        console.log(error);
 
-      setMessage("Erreur de connexion");
+        setMessage("Erreur de connexion");
+      }
     }
   }
 
