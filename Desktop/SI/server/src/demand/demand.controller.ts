@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get,Post,Put, Param, } from '@nestjs/common';
 import { DemandService } from './demand.service';
 import { CreateDemandDto } from './dto/create-demand.dto';
 
@@ -25,4 +25,41 @@ create(
  );
 
 }
+
+@Get()
+  findAll() {
+
+    return this.demandService.findAll();
+
+  }
+
+  @Get(':id')
+  findOne(
+    @Param('id') id: string
+  ) {
+
+    return this.demandService.findOne(Number(id));
+
+  }
+
+
+  @Put(':id')
+update(
+
+  @Param('id') id:string,
+
+  @Body() data:CreateDemandDto
+
+){
+
+  return this.demandService.update(
+
+    Number(id),
+
+    data
+
+  );
+
+}
+
 }

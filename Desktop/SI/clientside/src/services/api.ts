@@ -50,6 +50,23 @@ const api = {
 
   },
 
+getUsers: async () => {
+
+    const response = await http.get("/users");
+
+    return response.data;
+
+  },
+
+
+  getDemands: async () => {
+
+    const response = await http.get("/demand");
+
+    return response.data;
+
+  },
+
 createDemand: async (data:any)=>{
 
   const response = await http.post(

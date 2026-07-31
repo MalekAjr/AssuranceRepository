@@ -14,6 +14,9 @@ import MalusePage from "../pages/AssuranceAutoMoto/MalusePage";
 import AssuranceTemporairePage from "../pages/AssuranceAutoMoto/AssuranceTemporairePage";
 import SignupPage from "../pages/Auth/SignupPage";
 import LoginPage from "../pages/Auth/LoginPage";
+import DashboardLayout from "../pages/Dashboard/DashboardLayout";
+import UsersPage from "../pages/Users/UsersPage";
+import DemandsPage from "../pages/Demands/DemandsPage";
 
 export default function AppRoutes() {
   return (
@@ -22,6 +25,12 @@ export default function AppRoutes() {
         <Route path="/signup" element={<SignupPage />} />
 
         <Route path="/login" element={<LoginPage />} />
+
+        <Route path="/dashboard" element={<DashboardLayout />}>
+          <Route path="users" element={<UsersPage />} />
+
+          <Route path="demands" element={<DemandsPage />} />
+        </Route>
 
         <Route element={<Layout />}>
           <Route path="/" element={<HomePage />} />

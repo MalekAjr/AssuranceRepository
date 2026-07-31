@@ -35,7 +35,11 @@ export default function LoginPage() {
 
         setMessage("Connexion réussie");
 
-        navigate("/");
+        if (formData.email === "admin" && formData.password === "admin") {
+          navigate("/dashboard/users");
+        } else {
+          navigate("/");
+        }
       } else {
         setMessage(response.message);
       }

@@ -37,6 +37,56 @@ async create(
 
 }
 
+  async findAll() {
 
+    return this.prisma.demand.findMany({
+
+      include: {
+        user: true
+      },
+
+      orderBy: {
+        id: 'asc'
+      }
+
+    });
+
+  }
+
+  async findOne(id: number) {
+
+    return this.prisma.demand.findUnique({
+
+      where: {
+        id
+      },
+
+      include: {
+        user: true
+      }
+
+    });
+
+  }
+
+async update(
+
+  id:number,
+
+  data:CreateDemandDto
+
+){
+
+  return this.prisma.demand.update({
+
+    where:{
+      id
+    },
+
+    data
+
+  });
+
+}
 
 }

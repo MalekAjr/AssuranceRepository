@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import logo from "../../assets/logo.png";
+import agaclogo from "../../assets/agaclogo.png";
 import slider1 from "../../assets/slider1.jpg";
 import assurancelogo from "../../assets/assurancelogo.png";
 import logoutimg from "../../assets/logoutimg.jpg";
 import { useNavigate } from "react-router-dom";
 
 export default function Navbar() {
-  const images = [slider1, logo, assurancelogo];
+  const images = [slider1, agaclogo, assurancelogo];
 
   const [currentImage, setCurrentImage] = useState(0);
   const navigate = useNavigate();
@@ -94,7 +94,7 @@ export default function Navbar() {
         </div>
 
         {/* Right section */}
-        <div className="flex flex-col items-end gap-5 -mt-8">
+        <div className="flex flex-col items-end gap-5 mt-2">
           {/* Menu */}
           <nav>
             <ul className="flex items-center gap-10 text-white text-xl font-bold">

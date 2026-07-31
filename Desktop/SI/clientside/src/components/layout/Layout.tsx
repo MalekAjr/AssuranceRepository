@@ -3,17 +3,20 @@ import Navbar from "./Navbar";
 import LeftSidebar from "./LeftSidebar";
 import { FaPhoneAlt, FaEnvelope } from "react-icons/fa";
 import assurancelogo from "../../assets/assurancelogo.png";
+import carlogo from "../../assets/carlogo.png";
+
+import agaclogo from "../../assets/agaclogo.png";
 
 export default function Layout() {
   return (
     <div className="w-[70%] mx-auto min-h-screen bg-gray-100">
       {/* Top Header */}
       <div className="flex items-center justify-between py-6">
-        {/* assuranceLogo left */}
+        {/* agaclogo left */}
         <div className="flex items-center ml-10">
           <img
-            src={assurancelogo}
-            alt="SIProject assuranceLogo"
+            src={agaclogo}
+            alt="SIProject agaclogo"
             className="h-35 w-auto object-contain"
           />
         </div>
@@ -40,6 +43,20 @@ export default function Layout() {
           <div className="relative group">
             <Link
               to="/assurance-auto-moto"
+              className="relative h-48 rounded-xl overflow-hidden shadow-lg group"
+            >
+              <div
+                className="absolute inset-0 bg-cover bg-center transition-transform duration-300 group-hover:scale-105"
+                style={{
+                  backgroundImage: `url(${carlogo})`,
+                }}
+              />
+
+              <div className="relative z-10 flex h-full items-end justify-center p-4"></div>
+            </Link>
+            {/*
+            <Link
+              to="/assurance-auto-moto"
               className="
       flex flex-col items-center justify-center
       p-3 border rounded-lg
@@ -49,7 +66,7 @@ export default function Layout() {
     "
             >
               <img
-                src={assurancelogo}
+                src={carlogo}
                 alt="Assurance Auto Moto"
                 className="h-12 w-12 object-contain"
               />
@@ -58,7 +75,7 @@ export default function Layout() {
                 Assurance Auto/Moto
               </span>
             </Link>
-
+*/}
             {/* Dropdown */}
             <div
               className="
