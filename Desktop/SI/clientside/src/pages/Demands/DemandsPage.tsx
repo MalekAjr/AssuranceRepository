@@ -5,16 +5,9 @@ import {
   Bar,
   LineChart,
   Line,
-  AreaChart,
-  Area,
   PieChart,
   Pie,
   Cell,
-  RadarChart,
-  Radar,
-  PolarGrid,
-  PolarAngleAxis,
-  PolarRadiusAxis,
   XAxis,
   YAxis,
   Tooltip,
@@ -144,7 +137,7 @@ export default function DemandsPage() {
               <Tooltip />
 
               <Bar dataKey="value">
-                {userDemandData.map((entry, index) => (
+                {userDemandData.map((_, index) => (
                   <Cell
                     key={`cell-${index}`}
                     fill={BAR_COLORS[index % BAR_COLORS.length]}
@@ -189,7 +182,7 @@ export default function DemandsPage() {
                 outerRadius={100}
                 label
               >
-                {userDemandData.map((entry, index) => (
+                {userDemandData.map((_, index) => (
                   <Cell key={index} fill={COLORS[index % COLORS.length]} />
                 ))}
               </Pie>
@@ -235,7 +228,7 @@ export default function DemandsPage() {
               <Tooltip />
 
               <Bar dataKey="value">
-                {topUsersData.map((entry, index) => (
+                {topUsersData.map((_, index) => (
                   <Cell
                     key={`cell-${index}`}
                     fill={
@@ -266,7 +259,7 @@ export default function DemandsPage() {
               <Tooltip />
 
               <Bar dataKey="value">
-                {cityData.map((entry, index) => (
+                {cityData.map((_, index) => (
                   <Cell
                     key={`cell-${index}`}
                     fill={CITY_COLORS[index % CITY_COLORS.length]}

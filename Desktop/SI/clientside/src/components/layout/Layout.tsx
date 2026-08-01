@@ -3,7 +3,6 @@ import Navbar from "./Navbar";
 import LeftSidebar from "./LeftSidebar";
 import { FaPhoneAlt, FaEnvelope } from "react-icons/fa";
 import agaclogo from "../../assets/agaclogo.png";
-import assurancelogo from "../../assets/assurancelogo.png";
 import carlogo from "../../assets/carlogo.png";
 import houselogo from "../../assets/houselogo.png";
 import santelogo from "../../assets/santelogo.png";

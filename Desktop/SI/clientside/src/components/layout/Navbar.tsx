@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import agaclogo from "../../assets/agaclogo.png";
 import slider1 from "../../assets/slider1.jpg";
 import assurancelogo from "../../assets/assurancelogo.png";
-import logoutimg from "../../assets/logoutimg.jpg";
 import { useNavigate } from "react-router-dom";
 import { FaSignOutAlt } from "react-icons/fa";
 

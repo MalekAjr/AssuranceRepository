@@ -45,12 +45,6 @@ export default function UsersPage() {
     },
   ];
 
-  const usersDemandData = users.map((user) => ({
-    name: `${user.firstName} ${user.lastName}`,
-
-    demands: user.demands.length,
-  }));
-
   return (
     <div>
       <h1 className="text-3xl font-bold mb-8">Utilisateurs</h1>
