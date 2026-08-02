@@ -72,8 +72,7 @@ export default function ContactPage() {
         ville: "",
         email: "",
         telephone: "",
-        insuranceTypeId:
-          insuranceTypes.length > 0 ? String(insuranceTypes[0].id) : "",
+        insuranceTypeId: insuranceTypes.length > 0 ? insuranceTypes[0].id : 0,
         message: "",
       });
     } catch (error) {
@@ -183,7 +182,7 @@ export default function ContactPage() {
                 name="insuranceTypeId"
                 value={formData.insuranceTypeId}
                 onChange={handleChange}
-                className="flex-1 border rounded-lg p-3 focus:outline-none focus:border-blue-600"
+                className="flex-1 border rounded-lg p-3"
               >
                 {insuranceTypes.map((type) => (
                   <option key={type.id} value={type.id}>

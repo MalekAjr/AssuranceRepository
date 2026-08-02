@@ -1,4 +1,4 @@
-import { IsInt, IsString } from "class-validator";
+import { IsNumber, IsString } from "class-validator";
 
 
 export class CreateDemandDto {
@@ -27,7 +27,7 @@ export class CreateDemandDto {
  @IsString()
  telephone!:string;
  
-@IsInt()
+@IsNumber()
 insuranceTypeId!: number;
 
  @IsString()
