@@ -228,7 +228,7 @@ mb-5
                   <td className="p-4 text-gray-600">{product.description}</td>
                   <td className="p-4 flex gap-3">
                     <button
-                      onClick={() => navigate(`/dashboard/demands/${d.id}`)}
+                      onClick={() => navigate(`/dashboard/demands/${id}`)}
                       title="Voir détails"
                       className="
                         w-9

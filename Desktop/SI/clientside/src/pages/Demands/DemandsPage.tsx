@@ -53,6 +53,10 @@ interface Demand {
     createdAt: string;
   };
 }
+interface InsuranceDemand {
+  subject: string;
+  value: number;
+}
 export default function DemandsPage() {
   const [demands, setDemands] = useState<Demand[]>([]);
   const cityData = Object.entries(
@@ -67,7 +71,9 @@ export default function DemandsPage() {
   }));
 
   const navigate = useNavigate();
-  const [insuranceDemandData, setInsuranceDemandData] = useState([]);
+  const [insuranceDemandData, setInsuranceDemandData] = useState<
+    InsuranceDemand[]
+  >([]);
 
   useEffect(() => {
     api.getInsuranceDemandStats().then((data) => {
