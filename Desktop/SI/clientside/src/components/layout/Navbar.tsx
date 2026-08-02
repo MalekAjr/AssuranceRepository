@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
 import agaclogo from "../../assets/agaclogo.png";
 import slider1 from "../../assets/slider1.jpg";
-import assurancelogo from "../../assets/assurancelogo.png";
 import { useNavigate } from "react-router-dom";
 import { FaSignOutAlt } from "react-icons/fa";
 
 export default function Navbar() {
-  const images = [slider1, agaclogo, assurancelogo];
+  const images = [slider1, agaclogo];
 
   const [currentImage, setCurrentImage] = useState(0);
   const navigate = useNavigate();

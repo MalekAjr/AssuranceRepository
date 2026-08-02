@@ -17,6 +17,9 @@ import LoginPage from "../pages/Auth/LoginPage";
 import DashboardLayout from "../pages/Dashboard/DashboardLayout";
 import UsersPage from "../pages/Users/UsersPage";
 import DemandsPage from "../pages/Demands/DemandsPage";
+import DemandDetailsPage from "../pages/Demands/DemandDetailsPage";
+import CreateProductPage from "../pages/Product/CreateProductPage";
+import CreateInsuranceTypePage from "../pages/Assurance/InsuranceType/CreateInsuranceTypePage";
 
 export default function AppRoutes() {
   return (
@@ -30,6 +33,13 @@ export default function AppRoutes() {
           <Route path="users" element={<UsersPage />} />
 
           <Route path="demands" element={<DemandsPage />} />
+          <Route path="demands/:id" element={<DemandDetailsPage />} />
+
+          <Route
+            path="assuracetypes/create"
+            element={<CreateInsuranceTypePage />}
+          />
+          <Route path="products/create" element={<CreateProductPage />} />
         </Route>
 
         <Route element={<Layout />}>

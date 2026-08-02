@@ -177,41 +177,6 @@ export default function UsersPage() {
         </div>
 
         {/* Radar Chart */}
-
-        <div className="bg-white shadow rounded-xl p-6">
-          <h2 className="text-xl font-bold mb-5">Analyse utilisateurs</h2>
-
-          <div className="h-64">
-            <ResponsiveContainer width="100%" height="100%">
-              <RadarChart
-                data={[
-                  {
-                    subject: "Total",
-                    value: users.length,
-                  },
-                  {
-                    subject: "Téléphone",
-                    value: users.filter((u) => u.phone).length,
-                  },
-                  {
-                    subject: "Email",
-                    value: users.filter((u) => u.email).length,
-                  },
-                ]}
-              >
-                <PolarGrid />
-
-                <PolarAngleAxis dataKey="subject" />
-
-                <PolarRadiusAxis />
-
-                <Radar dataKey="value" />
-
-                <Tooltip />
-              </RadarChart>
-            </ResponsiveContainer>
-          </div>
-        </div>
       </div>
 
       {/* Table */}

@@ -1,4 +1,4 @@
-import { Body, Controller, Get,Post,Put, Param, } from '@nestjs/common';
+import { Body, Controller, Get,Post,Put, Param, Req, } from '@nestjs/common';
 import { DemandService } from './demand.service';
 import { CreateDemandDto } from './dto/create-demand.dto';
 
@@ -13,16 +13,15 @@ constructor(
 
 @Post()
 create(
- @Body() body: CreateDemandDto & { userId:number }
+  @Body() body: CreateDemandDto & { userId:number }
 ){
 
- const { userId, ...data } = body;
+  const { userId, ...data } = body;
 
-
- return this.demandService.create(
-   data,
-   userId
- );
+  return this.demandService.create(
+    data,
+    userId
+  );
 
 }
 
@@ -59,6 +58,13 @@ update(
     data
 
   );
+
+}
+
+@Get("stats/insurance")
+getInsuranceDemandStats(){
+
+  return this.demandService.getInsuranceDemandStats();
 
 }
 

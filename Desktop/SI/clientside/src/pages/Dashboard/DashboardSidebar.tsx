@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
-import { FaBars, FaUsers, FaFileAlt } from "react-icons/fa";
+import { FaBars, FaUsers, FaFileAlt, FaLayerGroup } from "react-icons/fa";
+import { FaProductHunt } from "react-icons/fa6";
 
 interface Props {
   collapsed: boolean;
@@ -17,6 +18,16 @@ export default function DashboardSidebar({ collapsed, setCollapsed }: Props) {
       name: "Les demandes",
       path: "demands",
       icon: <FaFileAlt />,
+    },
+    {
+      name: "Les Types D'assurance",
+      path: "assuracetypes/create",
+      icon: <FaLayerGroup />,
+    },
+    {
+      name: "Les Produits",
+      path: "products/create",
+      icon: <FaProductHunt />,
     },
   ];
 

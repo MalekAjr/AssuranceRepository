@@ -2,32 +2,26 @@ generator client {
   provider = "prisma-client-js"
 }
 
-
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
-
 model User {
-
-  id        Int      @id @default(autoincrement())
+  id        Int    @id @default(autoincrement())
   firstName String
   lastName  String
-  email     String   @unique
+  email     String @unique
   phone     String
   password  String
 
   demands Demand[]
 
   createdAt DateTime @default(now())
-
 }
 
-
 model Demand {
-
-  id         Int @id @default(autoincrement())
+  id Int @id @default(autoincrement())
 
   nom        String
   prenom     String
@@ -37,12 +31,38 @@ model Demand {
   telephone  String
   message    String
 
-
   userId Int
 
   user User @relation(fields: [userId], references: [id])
 
+  insuranceTypeId Int
+  insuranceType   InsuranceType @relation(fields: [insuranceTypeId], references: [id])
 
   createdAt DateTime @default(now())
+}
 
+model InsuranceType {
+  id Int @id @default(autoincrement())
+
+  title       String  @unique
+  description String?
+
+  demands  Demand[]
+  products Product[]
+
+  createdAt DateTime @default(now())
+}
+
+model Product {
+  id Int @id @default(autoincrement())
+
+  title String
+
+  description String?
+
+  insuranceTypeId Int
+
+  insuranceType InsuranceType @relation(fields: [insuranceTypeId], references: [id])
+
+  createdAt DateTime @default(now())
 }

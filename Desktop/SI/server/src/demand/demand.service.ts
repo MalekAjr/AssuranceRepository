@@ -12,28 +12,37 @@ constructor(
 ){}
 
 
-
 async create(
  data:CreateDemandDto,
  userId:number
 ){
 
+ const {
+   insuranceTypeId,
+   ...rest
+ } = data;
+
 
  return this.prisma.demand.create({
 
    data:{
-     ...data,
+     ...rest,
 
      user:{
        connect:{
          id:userId
+       }
+     },
+
+     insuranceType:{
+       connect:{
+         id: insuranceTypeId
        }
      }
 
    }
 
  });
-
 
 }
 
@@ -42,7 +51,8 @@ async create(
     return this.prisma.demand.findMany({
 
       include: {
-        user: true
+        user: true,
+        insuranceType: true,
       },
 
       orderBy: {
@@ -53,21 +63,28 @@ async create(
 
   }
 
-  async findOne(id: number) {
+  async findOne(id:number){
 
-    return this.prisma.demand.findUnique({
+ return this.prisma.demand.findUnique({
 
-      where: {
-        id
-      },
+  where:{
+    id
+  },
 
-      include: {
-        user: true
+  include:{
+    user:true,
+
+    insuranceType:{
+      include:{
+        products:true
       }
-
-    });
+    }
 
   }
+
+ });
+
+}
 
 async update(
 
@@ -86,6 +103,32 @@ async update(
     data
 
   });
+
+}
+
+
+async getInsuranceDemandStats() {
+
+  const types = await this.prisma.insuranceType.findMany({
+
+    include: {
+      _count: {
+        select: {
+          demands: true
+        }
+      }
+    }
+
+  });
+
+
+  return types.map((type) => ({
+
+    subject: type.title,
+
+    value: type._count.demands
+
+  }));
 
 }
 

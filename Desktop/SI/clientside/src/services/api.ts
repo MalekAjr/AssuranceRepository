@@ -79,6 +79,57 @@ createDemand: async (data:any)=>{
 
 },
 
+ getInsuranceTypes: async () => {
+    const response = await http.get("/insurance-types");
+
+    return response.data;
+  },
+
+getInsuranceDemandStats: async () => {
+
+  const response = await http.get(
+    "/demand/stats/insurance"
+  );
+
+  return response.data;
+
+},
+
+getDemand: async(id:number)=>{
+
+ const response = await http.get(
+   `/demand/${id}`
+ );
+
+ return response.data;
+
+},
+
+
+createInsuranceType: async(data:any)=>{
+
+const response = await http.post(
+"/insurance-types",
+data
+);
+
+return response.data;
+
+},
+
+
+
+createProduct: async(data:any)=>{
+
+const response = await http.post(
+"/product",
+data
+);
+
+return response.data;
+
+},
+
 };
 
 

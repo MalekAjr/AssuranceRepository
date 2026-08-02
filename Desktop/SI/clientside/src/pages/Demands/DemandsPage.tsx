@@ -12,22 +12,47 @@ import {
   YAxis,
   Tooltip,
   ResponsiveContainer,
+  RadarChart,
+  PolarGrid,
+  PolarAngleAxis,
+  PolarRadiusAxis,
+  Radar,
 } from "recharts";
+import { useNavigate } from "react-router-dom";
+import { FaEdit, FaEye, FaTrash } from "react-icons/fa";
 
 interface Demand {
   id: number;
+
   nom: string;
   prenom: string;
+  codePostal: string;
   ville: string;
+  email: string;
   telephone: string;
   message: string;
+
+  userId: number;
+  insuranceTypeId: number;
+
+  insuranceType: {
+    id: number;
+    title: string;
+    description?: string;
+    createdAt: string;
+  };
+
   createdAt: string;
 
   user: {
+    id: number;
+    firstName: string;
+    lastName: string;
     email: string;
+    phone: string;
+    createdAt: string;
   };
 }
-
 export default function DemandsPage() {
   const [demands, setDemands] = useState<Demand[]>([]);
   const cityData = Object.entries(
@@ -40,6 +65,15 @@ export default function DemandsPage() {
     name,
     value,
   }));
+
+  const navigate = useNavigate();
+  const [insuranceDemandData, setInsuranceDemandData] = useState([]);
+
+  useEffect(() => {
+    api.getInsuranceDemandStats().then((data) => {
+      setInsuranceDemandData(data);
+    });
+  }, []);
 
   const topUsersData = Object.entries(
     demands.reduce((acc: any, demand) => {
@@ -110,6 +144,7 @@ export default function DemandsPage() {
     "#ea580c",
     "#4f46e5",
   ];
+  const RADAR_COLORS = BAR_COLORS;
   const CITY_COLORS = [
     "#2563eb", // Blue
     "#16a34a", // Green
@@ -271,6 +306,98 @@ export default function DemandsPage() {
         </div>
       </div>
 
+      <div className="bg-white shadow rounded-xl p-6 mb-8">
+        <h2 className="text-xl font-bold mb-5">
+          Répartition des demandes par type d'assurance
+        </h2>
+
+        <div className="h-72">
+          <ResponsiveContainer width="100%" height="100%">
+            <RadarChart data={insuranceDemandData} outerRadius="80%">
+              <PolarGrid />
+
+              <PolarAngleAxis
+                dataKey="subject"
+                tick={({ payload, x, y, textAnchor }) => {
+                  const index = insuranceDemandData.findIndex(
+                    (item) => item.subject === payload.value,
+                  );
+
+                  return (
+                    <text
+                      x={x}
+                      y={y}
+                      textAnchor={textAnchor}
+                      fill={RADAR_COLORS[index]}
+                      fontWeight="bold"
+                      fontSize={12}
+                    >
+                      {payload.value}
+                    </text>
+                  );
+                }}
+              />
+
+              <PolarRadiusAxis
+                angle={30}
+                tick={{
+                  fontWeight: "bold",
+                  fontSize: 12,
+                }}
+              />
+
+              <Radar
+                dataKey="value"
+                stroke="#2563eb"
+                fill="#2563eb"
+                fillOpacity={0.3}
+                dot={(props) => {
+                  const { cx, cy, index } = props;
+
+                  return (
+                    <circle cx={cx} cy={cy} r={6} fill={BAR_COLORS[index]} />
+                  );
+                }}
+              />
+
+              <Tooltip formatter={(value) => [`${value} demandes`, "Total"]} />
+            </RadarChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
+
+      <div className="bg-white shadow rounded-xl p-6 mb-8">
+        <h2 className="text-xl font-bold mb-5">
+          Demandes par type d'assurance
+        </h2>
+
+        <div className="h-72">
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart data={insuranceDemandData}>
+              <XAxis
+                dataKey="subject"
+                angle={-30}
+                textAnchor="end"
+                height={80}
+              />
+
+              <YAxis />
+
+              <Tooltip />
+
+              <Bar dataKey="value">
+                {insuranceDemandData.map((_, index) => (
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={COLORS[index % COLORS.length]}
+                  />
+                ))}
+              </Bar>
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
+
       <div className="bg-white shadow rounded-lg overflow-hidden">
         <table className="w-full">
           <thead className="bg-blue-700 text-white">
@@ -284,9 +411,10 @@ export default function DemandsPage() {
               <th className="p-4 text-left">Téléphone</th>
 
               <th className="p-4 text-left">Par (Email)</th>
-
+              <th className="p-4 text-left">Type d'assurance</th>
               <th className="p-4 text-left">Message</th>
 
+              <th className="p-4 text-left">Actions</th>
               <th className="p-4 text-left">Date de Création</th>
             </tr>
           </thead>
@@ -304,8 +432,72 @@ export default function DemandsPage() {
 
                 <td className="p-4">{d.user.email}</td>
 
+                <td>{d.insuranceType.title}</td>
                 <td className="p-4">{d.message}</td>
+                <td className="p-4 flex gap-3">
+                  <button
+                    onClick={() => navigate(`/dashboard/demands/${d.id}`)}
+                    title="Voir détails"
+                    className="
+      w-9
+      h-9
+      flex
+      items-center
+      justify-center
+      rounded-full
+      bg-green-100
+      text-green-600
+      hover:bg-green-600
+      hover:text-white
+      transition
+      duration-200
+      "
+                  >
+                    <FaEye size={17} />
+                  </button>
 
+                  {/* Edit */}
+                  <button
+                    title="Modifier"
+                    className="
+      w-9
+      h-9
+      flex
+      items-center
+      justify-center
+      rounded-full
+      bg-blue-100
+      text-blue-600
+      hover:bg-blue-600
+      hover:text-white
+      transition
+      duration-200
+      "
+                  >
+                    <FaEdit size={17} />
+                  </button>
+
+                  {/* Delete */}
+                  <button
+                    title="Supprimer"
+                    className="
+      w-9
+      h-9
+      flex
+      items-center
+      justify-center
+      rounded-full
+      bg-red-100
+      text-red-600
+      hover:bg-red-600
+      hover:text-white
+      transition
+      duration-200
+      "
+                  >
+                    <FaTrash size={17} />
+                  </button>
+                </td>
                 <td className="p-4">
                   {new Date(d.createdAt).toLocaleString()}
                 </td>

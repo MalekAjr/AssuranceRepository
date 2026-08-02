@@ -1,11 +1,17 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import api from "../../services/api";
 
 export default function ContactPage() {
+  interface InsuranceType {
+    id: number;
+    title: string;
+    description?: string;
+  }
+  const [insuranceTypes, setInsuranceTypes] = useState<InsuranceType[]>([]);
   const navigate = useNavigate();
-
   const user = JSON.parse(localStorage.getItem("user") || "null");
+  const [message, setMessage] = useState("");
 
   const [formData, setFormData] = useState({
     nom: "",
@@ -14,18 +20,26 @@ export default function ContactPage() {
     ville: "",
     email: "",
     telephone: "",
+    insuranceTypeId: 0,
     message: "",
   });
 
-  const [message, setMessage] = useState("");
+  useEffect(() => {
+    api.getInsuranceTypes().then((data) => {
+      setInsuranceTypes(data);
+    });
+  }, []);
 
   function handleChange(
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
   ) {
+    const { name, value } = e.target;
+
     setFormData({
       ...formData,
-
-      [e.target.name]: e.target.value,
+      [name]: name === "insuranceTypeId" ? Number(value) : value,
     });
   }
 
@@ -58,6 +72,8 @@ export default function ContactPage() {
         ville: "",
         email: "",
         telephone: "",
+        insuranceTypeId:
+          insuranceTypes.length > 0 ? String(insuranceTypes[0].id) : "",
         message: "",
       });
     } catch (error) {
@@ -160,6 +176,22 @@ export default function ContactPage() {
               />
             </div>
 
+            <div className="flex items-center gap-4">
+              <label className="w-40 font-semibold">Type d'assurance *</label>
+
+              <select
+                name="insuranceTypeId"
+                value={formData.insuranceTypeId}
+                onChange={handleChange}
+                className="flex-1 border rounded-lg p-3 focus:outline-none focus:border-blue-600"
+              >
+                {insuranceTypes.map((type) => (
+                  <option key={type.id} value={type.id}>
+                    {type.title}
+                  </option>
+                ))}
+              </select>
+            </div>
             <div className="flex items-start gap-4">
               <label className="w-40 font-semibold">Message</label>
 
