@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Query } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create-product.dto';
 
@@ -24,13 +24,14 @@ export class ProductController {
 
 
 
-  @Get()
-  findAll(){
+@Get()
+findAll(
+  @Query('search') search?: string
+){
 
-    return this.productService.findAll();
+  return this.productService.findAll(search);
 
-  }
-
+}
 
 
   @Get(':id')
@@ -44,14 +45,10 @@ export class ProductController {
 
 
 
-  @Delete(':id')
-  remove(
-    @Param('id') id:string
-  ){
-
-    return this.productService.remove(+id);
-
-  }
+@Delete(':id')
+remove(@Param('id') id: string) {
+  return this.productService.remove(Number(id));
+}
 
 
 }

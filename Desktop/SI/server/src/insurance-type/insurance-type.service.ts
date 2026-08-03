@@ -17,14 +17,71 @@ export class InsuranceTypeService {
 
   }
 
-  findAll() {
+ findAll(search?: string) {
 
-    return this.prisma.insuranceType.findMany({
-      orderBy: {
-        id: 'asc',
-      },
-    });
+  return this.prisma.insuranceType.findMany({
 
-  }
+    where: search
+      ? {
+          OR: [
+            {
+              title: {
+                contains: search,
+                mode: "insensitive",
+              },
+            },
+            {
+              description: {
+                contains: search,
+                mode: "insensitive",
+              },
+            },
+          ],
+        }
+      : undefined,
+
+
+    orderBy: {
+      id: "asc",
+    },
+
+  });
+
+}
+
+findOne(id: number) {
+  return this.prisma.insuranceType.findUnique({
+    where: {
+      id,
+    },
+  });
+}
+
+async remove(id: number) {
+
+  // delete related products first
+  await this.prisma.product.deleteMany({
+    where: {
+      insuranceTypeId: id,
+    },
+  });
+
+
+  // delete related demands first
+  await this.prisma.demand.deleteMany({
+    where: {
+      insuranceTypeId: id,
+    },
+  });
+
+
+  // then delete insurance type
+  return this.prisma.insuranceType.delete({
+    where: {
+      id,
+    },
+  });
+
+}
 
 }

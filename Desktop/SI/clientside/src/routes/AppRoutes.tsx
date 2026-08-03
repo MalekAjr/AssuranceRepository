@@ -20,6 +20,8 @@ import DemandsPage from "../pages/Demands/DemandsPage";
 import DemandDetailsPage from "../pages/Demands/DemandDetailsPage";
 import CreateProductPage from "../pages/Product/CreateProductPage";
 import CreateInsuranceTypePage from "../pages/Assurance/InsuranceType/CreateInsuranceTypePage";
+import InsuranceTypesPage from "../pages/Assurance/InsuranceType/InsuranceTypesPage";
+import ProductsPage from "../pages/Product/ProductsPage";
 
 export default function AppRoutes() {
   return (
@@ -35,10 +37,13 @@ export default function AppRoutes() {
           <Route path="demands" element={<DemandsPage />} />
           <Route path="demands/:id" element={<DemandDetailsPage />} />
 
+          <Route path="insurance-types" element={<InsuranceTypesPage />} />
           <Route
             path="assuracetypes/create"
             element={<CreateInsuranceTypePage />}
           />
+
+          <Route path="products" element={<ProductsPage />} />
           <Route path="products/create" element={<CreateProductPage />} />
         </Route>
 

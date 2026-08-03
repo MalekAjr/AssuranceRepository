@@ -21,12 +21,12 @@ export default function DashboardSidebar({ collapsed, setCollapsed }: Props) {
     },
     {
       name: "Les Types D'assurance",
-      path: "assuracetypes/create",
+      path: "insurance-types",
       icon: <FaLayerGroup />,
     },
     {
       name: "Les Produits",
-      path: "products/create",
+      path: "products",
       icon: <FaProductHunt />,
     },
   ];

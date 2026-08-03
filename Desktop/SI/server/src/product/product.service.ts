@@ -37,17 +37,49 @@ export class ProductService {
 
 
 
-  findAll(){
+ findAll(search?: string){
 
-    return this.prisma.product.findMany({
+  return this.prisma.product.findMany({
 
-      include:{
-        insuranceType:true
-      }
+    where: search
+      ? {
+          OR: [
+            {
+              title: {
+                contains: search,
+                mode: "insensitive",
+              },
+            },
+            {
+              description: {
+                contains: search,
+                mode: "insensitive",
+              },
+            },
+            {
+              insuranceType: {
+                title: {
+                  contains: search,
+                  mode: "insensitive",
+                },
+              },
+            },
+          ],
+        }
+      : undefined,
 
-    });
 
-  }
+    include:{
+      insuranceType:true
+    },
+
+    orderBy:{
+      id:"asc"
+    }
+
+  });
+
+}
 
 
 
@@ -69,17 +101,17 @@ export class ProductService {
 
 
 
-  remove(id:number){
+async remove(id: number) {
 
-    return this.prisma.product.delete({
+  return this.prisma.product.delete({
 
-      where:{
-        id
-      }
+    where: {
+      id,
+    },
 
-    });
+  });
 
-  }
+}
 
 
 }

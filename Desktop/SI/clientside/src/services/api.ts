@@ -79,11 +79,27 @@ createDemand: async (data:any)=>{
 
 },
 
- getInsuranceTypes: async () => {
-    const response = await http.get("/insurance-types");
+getInsuranceTypes: async (search?: string) => {
 
-    return response.data;
-  },
+  const response = await http.get("/insurance-types", {
+    params: {
+      search,
+    },
+  });
+
+  return response.data;
+
+},
+
+deleteInsuranceType: async (id:number)=>{
+
+  const response = await http.delete(
+    `/insurance-types/${id}`
+  );
+
+  return response.data;
+
+},
 
 getInsuranceDemandStats: async () => {
 
@@ -118,6 +134,17 @@ return response.data;
 },
 
 
+getProducts: async (search?: string) => {
+
+ const response = await http.get("/product", {
+   params:{
+     search
+   }
+ });
+
+ return response.data;
+
+},
 
 createProduct: async(data:any)=>{
 
@@ -128,6 +155,11 @@ data
 
 return response.data;
 
+},
+
+deleteProduct: async (id: number) => {
+  const response = await http.delete(`/product/${id}`);
+  return response.data;
 },
 
 };

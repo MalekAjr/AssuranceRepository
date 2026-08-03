@@ -1,7 +1,10 @@
 import { useState } from "react";
 import api from "../../../services/api";
+import { FaArrowLeft } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 export default function CreateInsuranceTypePage() {
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     title: "",
     description: "",
@@ -54,17 +57,40 @@ export default function CreateInsuranceTypePage() {
 
   return (
     <div className="container mx-auto p-8">
-      <h1
-        className="
-text-3xl
-font-bold
-text-blue-700
-mb-8
-"
-      >
-        Créer un type d'assurance
-      </h1>
+      <div className="flex items-center gap-4 mb-8">
+        <button
+          onClick={() => navigate(-1)}
+          className="
+      w-11
+      h-11
+      flex
+      items-center
+      justify-center
+      rounded-full
+      bg-blue-100
+      text-blue-600
+      hover:bg-blue-600
+      hover:text-white
+      shadow-md
+      hover:scale-110
+      transition
+      duration-300
+    "
+          title="Retour"
+        >
+          <FaArrowLeft size={20} />
+        </button>
 
+        <h1
+          className="
+      text-3xl
+      font-bold
+      text-blue-700
+    "
+        >
+          Créer un type d'assurance
+        </h1>
+      </div>
       <form
         onSubmit={handleSubmit}
         className="
